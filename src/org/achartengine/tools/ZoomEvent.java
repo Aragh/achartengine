@@ -24,6 +24,10 @@ public class ZoomEvent {
   private boolean mZoomIn;
   /** The zoom rate. */
   private float mZoomRate;
+  /** Current zoom level on X axis */
+  private float mZoomLevelX;
+  /** Current zoom level on Y axis */
+  private float mZoomLevelY;
 
   /**
    * Builds the zoom tool.
@@ -52,5 +56,23 @@ public class ZoomEvent {
    */
   public float getZoomRate() {
     return mZoomRate;
+  }
+
+  /**
+   * Returns current zoom level on X axis.
+   *
+   * @return the zoom level
+   */
+  public float getZoomLevelX() {
+    return mZoomLevelX;
+  }
+
+  /**
+   * Returns current zoom level on Y axis.
+   *
+   * @return the zoom level
+   */
+  public float getZoomLevelY() {
+      return mZoomLevelY;
   }
 }

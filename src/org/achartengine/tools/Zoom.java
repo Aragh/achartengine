@@ -150,6 +150,7 @@ public class Zoom extends AbstractTool {
         renderer.setScale(renderer.getScale() / mZoomRate);
       }
     }
+    // TODO provide current zoom for zoom event
     notifyZoomListeners(new ZoomEvent(mZoomIn, mZoomRate));
   }
 
