@@ -30,7 +30,8 @@ Changelog
     ZoomEvent.getZoomYLevel();
   ```
   
-  For round chart the those methods returns
+  For round chart methods listed above returns
+  
   ```java
     Double.POSITIVE_INFINITY
   ```
@@ -49,5 +50,11 @@ TODO
 * When the chart is zoomed in and panned to any of the limit values it can't be zoomed out. Limit reached check doesn't 
 distinguish between sides. When done correctly the side of the chart that reached the limit should be fixed and the 
 other side should zoom out revealing previously hidden data.
+
+
+DONE
+----
+* Zoom listener should return current zoom level. Currently it only returns change ratio.
+
 
 [1]: https://code.google.com/p/achartengine/
