@@ -71,6 +71,8 @@ public class Zoom extends AbstractTool {
    * Apply the zoom.
    */
   public void apply(int zoom_axis) {
+    double zoomXLevel = Double.POSITIVE_INFINITY;
+    double zoomYLevel = Double.POSITIVE_INFINITY;
     if (mChart instanceof XYChart) {
       int scales = mRenderer.getScalesCount();
       for (int i = 0; i < scales; i++) {
@@ -119,6 +121,9 @@ public class Zoom extends AbstractTool {
             newHeight *= mZoomRate;
           }
         }
+
+        zoomXLevel = newWidth;
+        zoomYLevel = newHeight;
         
         double minX, minY;
         if (limits != null) {
@@ -150,8 +155,7 @@ public class Zoom extends AbstractTool {
         renderer.setScale(renderer.getScale() / mZoomRate);
       }
     }
-    // TODO provide current zoom for zoom event
-    notifyZoomListeners(new ZoomEvent(mZoomIn, mZoomRate));
+    notifyZoomListeners(new ZoomEvent(mZoomIn, mZoomRate, zoomXLevel, zoomYLevel));
   }
 
   /**

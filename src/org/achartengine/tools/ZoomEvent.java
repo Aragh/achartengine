@@ -15,6 +15,7 @@
  */
 package org.achartengine.tools;
 
+import org.achartengine.chart.RoundChart;
 
 /**
  * A zoom event.
@@ -25,19 +26,34 @@ public class ZoomEvent {
   /** The zoom rate. */
   private float mZoomRate;
   /** Current zoom level on X axis */
-  private float mZoomLevelX;
+  private double mZoomXLevel;
   /** Current zoom level on Y axis */
-  private float mZoomLevelY;
+  private double mZoomYLevel;
+
+
+  /**
+   * Builds the zoom tool. When using this constructor zoom level is set to {@literal Double.POSITIVE_INFINITY}.
+   *
+   * @param in zoom in or out
+   * @param rate the zoom rate
+   */
+  public ZoomEvent(boolean in, float rate) {
+    this(in, rate, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+  }
 
   /**
    * Builds the zoom tool.
    * 
    * @param in zoom in or out
    * @param rate the zoom rate
+   * @param zoomXLevel zoom level for x axis
+   * @param zoomYLevel zoom level for y axis
    */
-  public ZoomEvent(boolean in, float rate) {
+  public ZoomEvent(boolean in, float rate, double zoomXLevel, double zoomYLevel) {
     mZoomIn = in;
     mZoomRate = rate;
+    mZoomXLevel = zoomXLevel;
+    mZoomYLevel = zoomYLevel;
   }
 
   /**
@@ -60,19 +76,21 @@ public class ZoomEvent {
 
   /**
    * Returns current zoom level on X axis.
+   * For {@link RoundChart} it returns {@literal Double.POSITIVE_INFINITY}.
    *
    * @return the zoom level
    */
-  public float getZoomLevelX() {
-    return mZoomLevelX;
+  public double getZoomXLevel() {
+    return mZoomXLevel;
   }
 
   /**
    * Returns current zoom level on Y axis.
+   * For {@link RoundChart} it returns {@literal Double.POSITIVE_INFINITY}.
    *
    * @return the zoom level
    */
-  public float getZoomLevelY() {
-      return mZoomLevelY;
+  public double getZoomYLevel() {
+      return mZoomYLevel;
   }
 }
