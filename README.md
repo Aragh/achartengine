@@ -20,6 +20,22 @@ r567
 Changelog
 ---------
 
+26.05.2014:
+
+* Zoom listener returns current zoom level through ZoomEvent separately for x and y axis.
+  Level values can be obtained by:
+  
+  ```java
+    ZoomEvent.getZoomXLevel();
+    ZoomEvent.getZoomYLevel();
+  ```
+  
+  For round chart the those methods returns
+  ```java
+    Double.POSITIVE_INFINITY
+  ```
+
+
 25.05.2014:
 
 * Removed Eclipse specific files form repository.
@@ -28,7 +44,6 @@ Changelog
 TODO
 ----
 
-* Zoom listener should return current zoom level. Currently it only returns change ratio.
 * When pan limits are set the initial range is ignored. Both should work.
 * Axis should have configurable thickness.
 * When the chart is zoomed in and panned to any of the limit values it can't be zoomed out. Limit reached check doesn't 
