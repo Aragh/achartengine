@@ -456,6 +456,7 @@ public abstract class XYChart extends AbstractChart {
       transform(canvas, angle, false);
     }
     if (mRenderer.isShowAxes()) {
+      // TODO set axes thickness
       paint.setColor(mRenderer.getXAxisColor());
       canvas.drawLine(left, bottom, right, bottom, paint);
       paint.setColor(mRenderer.getYAxisColor());

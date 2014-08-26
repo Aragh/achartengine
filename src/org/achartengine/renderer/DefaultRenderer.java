@@ -51,6 +51,8 @@ public class DefaultRenderer implements Serializable {
   private boolean mApplyBackgroundColor;
   /** If the axes are visible. */
   private boolean mShowAxes = true;
+  /** Default axis line thickness */
+  private int mAxisThickness = 1;
   /** The Y axis color. */
   private int mYAxisColor = TEXT_COLOR;
   /** The X axis color. */
@@ -77,6 +79,10 @@ public class DefaultRenderer implements Serializable {
   private boolean mShowCustomTextGridX = false;
   /** If the custom text grid should be displayed on the Y axis. */
   private boolean mShowCustomTextGridY = false;
+  /** Default thickness of the X axis grid */
+  private int mGridXThickness = 1;
+  /** Default thickness of the Y axis grid */
+  private int mGridYThickness = 1;
   /** The simple renderers that are included in this multiple series renderer. */
   private List<SimpleSeriesRenderer> mRenderers = new ArrayList<SimpleSeriesRenderer>();
   /** The antialiasing flag. */
@@ -363,6 +369,24 @@ public class DefaultRenderer implements Serializable {
   }
 
   /**
+   * Returns current axis thickness in pixels. The default value is 1px.
+   *
+   * @return the axis thickness.
+   */
+  public int getmAxisThickness() {
+    return mAxisThickness;
+  }
+
+  /**
+   * Sets the axis thickness in pixels. This value is used both for x and y axis.
+   *
+   * @param axisThickness new thickness of the xy axis.
+   */
+  public void setAxisThickness(int axisThickness) {
+    mAxisThickness = axisThickness;
+  }
+
+  /**
    * Returns if the labels should be visible.
    * 
    * @return the visibility flag for the labels
@@ -488,6 +512,42 @@ public class DefaultRenderer implements Serializable {
   public void setShowCustomTextGrid(boolean showGrid) {
     setShowCustomTextGridX(showGrid);
     setShowCustomTextGridY(showGrid);
+  }
+
+  /**
+   * Returns the grid thickness of an Y axis.
+   *
+   * @return the Y axis grid thickness.
+   */
+  public int getGridYThickness() {
+    return mGridYThickness;
+  }
+
+  /**
+   * Sets the grid thickness for Y axis. Value needs to be in pixels.
+   *
+   * @param gridYThickness the Y axis grid thickness.
+   */
+  public void setGridYThickness(int gridYThickness) {
+    this.mGridYThickness = gridYThickness;
+  }
+
+  /**
+   * Returns the grid thickness of an X axis.
+   *
+   * @return the X axis grid thickness.
+   */
+  public int getGridXThickness() {
+    return mGridXThickness;
+  }
+
+  /**
+   * Sets the grid thickness for X axis. Value needs to be in pixels.
+   *
+   * @param gridXThickness the X axis grid thickness.
+   */
+  public void setGridXThickness(int gridXThickness) {
+    this.mGridXThickness = gridXThickness;
   }
 
   /**
