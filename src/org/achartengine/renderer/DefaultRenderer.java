@@ -373,7 +373,7 @@ public class DefaultRenderer implements Serializable {
    *
    * @return the axis thickness.
    */
-  public int getmAxisThickness() {
+  public int getAxisThickness() {
     return mAxisThickness;
   }
 
@@ -418,8 +418,8 @@ public class DefaultRenderer implements Serializable {
    * 
    * @param showTickMarks the visibility flag for the tick marks
    */
-  public void setShowTickMarks(boolean mShowTickMarks) {
-    this.mShowTickMarks = mShowTickMarks;
+  public void setShowTickMarks(boolean showTickMarks) {
+    this.mShowTickMarks = showTickMarks;
   }
 
   /**
