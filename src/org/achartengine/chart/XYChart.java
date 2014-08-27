@@ -715,6 +715,7 @@ public abstract class XYChart extends AbstractChart {
     int length = xLabels.size();
     boolean showLabels = mRenderer.isShowLabels();
     boolean showGridY = mRenderer.isShowGridY();
+    int gridYThickness = mRenderer.getGridYThickness();
     boolean showTickMarks = mRenderer.isShowTickMarks();
     for (int i = 0; i < length; i++) {
       double label = xLabels.get(i);
@@ -722,16 +723,26 @@ public abstract class XYChart extends AbstractChart {
       if (showLabels) {
         paint.setColor(mRenderer.getXLabelsColor());
         if (showTickMarks) {
+          float previousTickStroke = paint.getStrokeWidth();
+          if (gridYThickness != Integer.MAX_VALUE) {
+            paint.setStrokeWidth(gridYThickness);
+          }
           canvas
               .drawLine(xLabel, bottom, xLabel, bottom + mRenderer.getLabelsTextSize() / 3, paint);
+          paint.setStrokeWidth(previousTickStroke);
         }
         drawText(canvas, getLabel(mRenderer.getXLabelFormat(), label), xLabel,
             bottom + mRenderer.getLabelsTextSize() * 4 / 3 + mRenderer.getXLabelsPadding(), paint,
             mRenderer.getXLabelsAngle());
       }
       if (showGridY) {
+        float currentStroke = paint.getStrokeWidth();
+        if (gridYThickness != Integer.MAX_VALUE) {
+          paint.setStrokeWidth(gridYThickness);
+        }
         paint.setColor(mRenderer.getGridColor(0));
         canvas.drawLine(xLabel, bottom, xLabel, top, paint);
+        paint.setStrokeWidth(currentStroke);
       }
     }
     drawXTextLabels(xTextLabelLocations, canvas, paint, showLabels, left, top, bottom,
@@ -755,6 +766,7 @@ public abstract class XYChart extends AbstractChart {
       int maxScaleNumber, int left, int right, int bottom, double[] yPixelsPerUnit, double[] minY) {
     Orientation or = mRenderer.getOrientation();
     boolean showGridX = mRenderer.isShowGridX();
+    int gridXThickness = mRenderer.getGridXThickness();
     boolean showLabels = mRenderer.isShowLabels();
     boolean showTickMarks = mRenderer.isShowTickMarks();
     for (int i = 0; i < maxScaleNumber; i++) {
@@ -771,7 +783,12 @@ public abstract class XYChart extends AbstractChart {
             paint.setColor(mRenderer.getYLabelsColor(i));
             if (axisAlign == Align.LEFT) {
               if (showTickMarks) {
+                float previousTickStroke = paint.getStrokeWidth();
+                if (gridXThickness != Integer.MAX_VALUE) {
+                  paint.setStrokeWidth(gridXThickness);
+                }
                 canvas.drawLine(left + getLabelLinePos(axisAlign), yLabel, left, yLabel, paint);
+                paint.setStrokeWidth(previousTickStroke);
               }
               drawText(canvas, getLabel(mRenderer.getYLabelFormat(i), label),
                   left - mRenderer.getYLabelsPadding(),
@@ -779,7 +796,12 @@ public abstract class XYChart extends AbstractChart {
                   mRenderer.getYLabelsAngle());
             } else {
               if (showTickMarks) {
+                float previousTickStroke = paint.getStrokeWidth();
+                if (gridXThickness != Integer.MAX_VALUE) {
+                  paint.setStrokeWidth(gridXThickness);
+                }
                 canvas.drawLine(right, yLabel, right + getLabelLinePos(axisAlign), yLabel, paint);
+                paint.setStrokeWidth(previousTickStroke);
               }
               drawText(canvas, getLabel(mRenderer.getYLabelFormat(i), label),
                   right + mRenderer.getYLabelsPadding(),
@@ -788,24 +810,44 @@ public abstract class XYChart extends AbstractChart {
             }
           }
           if (showGridX) {
+            float previousStroke = paint.getStrokeWidth();
+            if (gridXThickness != Integer.MAX_VALUE) {
+              paint.setStrokeWidth(gridXThickness);
+            }
             paint.setColor(mRenderer.getGridColor(i));
             canvas.drawLine(left, yLabel, right, yLabel, paint);
+            paint.setStrokeWidth(previousStroke);
           }
         } else if (or == Orientation.VERTICAL) {
           if (showLabels && !textLabel) {
             paint.setColor(mRenderer.getYLabelsColor(i));
             if (showTickMarks) {
+              float previousTickStroke = paint.getStrokeWidth();
+              if (gridXThickness != Integer.MAX_VALUE) {
+                paint.setStrokeWidth(gridXThickness);
+              }
               canvas.drawLine(right - getLabelLinePos(axisAlign), yLabel, right, yLabel, paint);
+              paint.setStrokeWidth(previousTickStroke);
             }
             drawText(canvas, getLabel(mRenderer.getLabelFormat(), label),
                 right + 10 + mRenderer.getYLabelsPadding(),
                 yLabel - mRenderer.getYLabelsVerticalPadding(), paint, mRenderer.getYLabelsAngle());
           }
           if (showGridX) {
+            float previousStroke = paint.getStrokeWidth();
+            if (gridXThickness != Integer.MAX_VALUE) {
+              paint.setStrokeWidth(gridXThickness);
+            }
             paint.setColor(mRenderer.getGridColor(i));
             if (showTickMarks) {
+              float previousTickStroke = paint.getStrokeWidth();
+              if (gridXThickness != Integer.MAX_VALUE) {
+                paint.setStrokeWidth(gridXThickness);
+              }
               canvas.drawLine(right, yLabel, left, yLabel, paint);
+              paint.setStrokeWidth(previousTickStroke);
             }
+            paint.setStrokeWidth(previousStroke);
           }
         }
       }
@@ -829,6 +871,7 @@ public abstract class XYChart extends AbstractChart {
       boolean showLabels, int left, int top, int bottom, double xPixelsPerUnit, double minX,
       double maxX) {
     boolean showCustomTextGridX = mRenderer.isShowCustomTextGridX();
+    int gridXThickness = mRenderer.getGridXThickness();
     boolean showTickMarks = mRenderer.isShowTickMarks();
     if (showLabels) {
       paint.setColor(mRenderer.getXLabelsColor());
@@ -837,8 +880,13 @@ public abstract class XYChart extends AbstractChart {
           float xLabel = (float) (left + xPixelsPerUnit * (location.doubleValue() - minX));
           paint.setColor(mRenderer.getXLabelsColor());
           if (showTickMarks) {
+            float previousTickStroke = paint.getStrokeWidth();
+            if (gridXThickness != Integer.MAX_VALUE) {
+              paint.setStrokeWidth(gridXThickness);
+            }
             canvas.drawLine(xLabel, bottom, xLabel, bottom + mRenderer.getLabelsTextSize() / 3,
                 paint);
+            paint.setStrokeWidth(previousTickStroke);
           }
           drawText(canvas, mRenderer.getXTextLabel(location), xLabel,
               bottom + mRenderer.getLabelsTextSize() * 4 / 3 + mRenderer.getXLabelsPadding(),
