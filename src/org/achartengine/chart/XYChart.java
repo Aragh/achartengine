@@ -456,7 +456,10 @@ public abstract class XYChart extends AbstractChart {
       transform(canvas, angle, false);
     }
     if (mRenderer.isShowAxes()) {
-      // TODO set axes thickness
+      float currentThickness = paint.getStrokeWidth();
+      if(mRenderer.getmAxisThickness() != Integer.MAX_VALUE) {
+        paint.setStrokeWidth(mRenderer.getmAxisThickness());
+      }
       paint.setColor(mRenderer.getXAxisColor());
       canvas.drawLine(left, bottom, right, bottom, paint);
       paint.setColor(mRenderer.getYAxisColor());
@@ -471,6 +474,9 @@ public abstract class XYChart extends AbstractChart {
         }
       } else if (or == Orientation.VERTICAL) {
         canvas.drawLine(right, top, right, bottom, paint);
+      }
+      if(mRenderer.getmAxisThickness() != Integer.MAX_VALUE) {
+        paint.setStrokeWidth(currentThickness);
       }
     }
     if (rotate) {

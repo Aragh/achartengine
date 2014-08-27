@@ -52,7 +52,7 @@ public class DefaultRenderer implements Serializable {
   /** If the axes are visible. */
   private boolean mShowAxes = true;
   /** Default axis line thickness */
-  private int mAxisThickness = 1;
+  private int mAxisThickness = Integer.MAX_VALUE;
   /** The Y axis color. */
   private int mYAxisColor = TEXT_COLOR;
   /** The X axis color. */
@@ -80,9 +80,9 @@ public class DefaultRenderer implements Serializable {
   /** If the custom text grid should be displayed on the Y axis. */
   private boolean mShowCustomTextGridY = false;
   /** Default thickness of the X axis grid */
-  private int mGridXThickness = 1;
+  private int mGridXThickness = Integer.MAX_VALUE;
   /** Default thickness of the Y axis grid */
-  private int mGridYThickness = 1;
+  private int mGridYThickness = Integer.MAX_VALUE;
   /** The simple renderers that are included in this multiple series renderer. */
   private List<SimpleSeriesRenderer> mRenderers = new ArrayList<SimpleSeriesRenderer>();
   /** The antialiasing flag. */
