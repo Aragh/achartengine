@@ -20,6 +20,11 @@ r567
 Changelog
 ---------
 
+10.09.2014:
+
+* CategorySeries supports scale number which is passed to XYSeries when using transformation to this type. 
+
+
 27.05.2014:
 
 * Chart axis has configurable thickness. The thickness value can be configured in through 
@@ -85,6 +90,7 @@ other side should zoom out revealing previously hidden data.
 DONE
 ----
 
+* Support scale number in CategorySeries class and pass it to XYSeries when converting to this type
 * Zoom listener should return current zoom level. Currently it only returns change ratio.
 * Axis should have configurable thickness.
 

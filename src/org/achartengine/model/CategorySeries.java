@@ -25,6 +25,8 @@ import java.util.List;
 public class CategorySeries implements Serializable {
   /** The series title. */
   private String mTitle;
+  /** The scale number for this series. */
+  private final int mScaleNumber;
   /** The series categories. */
   private List<String> mCategories = new ArrayList<String>();
   /** The series values. */
@@ -32,11 +34,22 @@ public class CategorySeries implements Serializable {
 
   /**
    * Builds a new category series.
-   * 
+   *
    * @param title the series title
    */
   public CategorySeries(String title) {
+    this(title, 0);
+  }
+
+  /**
+   * Builds a new category series.
+   * 
+   * @param title the series title
+   * @param scaleNumber the series scale number
+   */
+  public CategorySeries(String title, int scaleNumber) {
     mTitle = title;
+    mScaleNumber = scaleNumber;
   }
 
   /**
@@ -127,13 +140,17 @@ public class CategorySeries implements Serializable {
     return mCategories.size();
   }
 
+  public int getScaleNumber() {
+    return mScaleNumber;
+  }
+
   /**
    * Transforms the category series to an XY series.
    * 
    * @return the XY series
    */
   public XYSeries toXYSeries() {
-    XYSeries xySeries = new XYSeries(mTitle);
+    XYSeries xySeries = new XYSeries(mTitle, mScaleNumber);
     int k = 0;
     for (double value : mValues) {
       xySeries.add(++k, value);
