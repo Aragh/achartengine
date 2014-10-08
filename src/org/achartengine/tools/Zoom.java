@@ -33,8 +33,10 @@ public class Zoom extends AbstractTool {
   private float mZoomRate;
   /** The zoom listeners. */
   private List<ZoomListener> mZoomListeners = new ArrayList<ZoomListener>();
-  /** Zoom limits reached on the X axis. */
-  private boolean limitsReachedX = false;
+  /** Zoom min limit reached on the X axis. */
+  private boolean limitsReachedMinX = false;
+  /** Zoom max limit reached on the X axis. */
+  private boolean limitsReachedMaxX = false;
   /** Zoom limits reached on the Y axis. */
   private boolean limitsReachedY = false;
 
@@ -91,14 +93,23 @@ public class Zoom extends AbstractTool {
 
         // if already reached last zoom, then it will always set to reached
         if (i == 0) {
-          limitsReachedX = limits != null && (newXMin <= limits[0] || newXMax >= limits[1]);
+          limitsReachedMinX = limits != null && newXMin <= limits[0];
+          limitsReachedMaxX = limits != null && newXMax >= limits[1];
           limitsReachedY = limits != null && (newYMin <= limits[2] || newYMax >= limits[3]);
         }
 
         if (mZoomIn) {
           if (mRenderer.isZoomXEnabled() && (zoom_axis == ZOOM_AXIS_X || zoom_axis == ZOOM_AXIS_XY)) {
-            if (limitsReachedX && mZoomRate < 1) {
-              // ignore pinch zoom out once reached X limit
+            if (limitsReachedMinX && limitsReachedMaxX && mZoomRate < 1) {
+              //both limits reached - ignore zoom
+            } else if (limitsReachedMinX  && mZoomRate < 1) {
+              double belowLimit = limits[0] - newXMin;
+              centerX += belowLimit;
+              newWidth /= mZoomRate;
+            } else if (limitsReachedMaxX && mZoomRate < 1) {
+              double overLimit = newXMax - limits[1];
+              centerX -= overLimit;
+              newWidth /= mZoomRate;
             } else {
               newWidth /= mZoomRate;
             }
@@ -111,7 +122,7 @@ public class Zoom extends AbstractTool {
             }
           }
         } else {
-          if (mRenderer.isZoomXEnabled() && !limitsReachedX
+          if (mRenderer.isZoomXEnabled() && !limitsReachedMinX && !limitsReachedMaxX
               && (zoom_axis == ZOOM_AXIS_X || zoom_axis == ZOOM_AXIS_XY)) {
             newWidth *= mZoomRate;
           }
