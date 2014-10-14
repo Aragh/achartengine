@@ -256,7 +256,7 @@ public class BarChart extends XYChart {
       if (!isNullValue(value)) {
         float x = points.get(i);
         if (mType == Type.DEFAULT) {
-          x += seriesIndex * 2 * halfDiffX - (seriesNr - 1.5f) * halfDiffX;
+          x += seriesIndex * 2 * halfDiffX - (seriesNr - 1) * halfDiffX;
         }
         if (value >= 0) {
           drawText(canvas, getLabel(renderer.getChartValuesFormat(), value), x, points.get(i + 1)
